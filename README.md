@@ -4,9 +4,6 @@
 
 
 Training:
-
 Environmental requirements:
-
 Python 3.7 or a newer version
-
 Pytorch 1.3.1 0r a newer version
