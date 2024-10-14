@@ -1,8 +1,5 @@
 import sys
-sys.path.append('/home/work/data/myfive-org')
-# from archs.FIVE_APLUS import FIVE_APLUSNet
-from archs.enlightwater import FIVE_APLUSNet
-
+from archs.enlightwater import Enlight
 import torch
 import cv2,datetime,os
 import argparse
@@ -10,8 +7,8 @@ from tqdm import tqdm
 from torchvision import transforms
 import numpy as np
 from os.path import join
-satellite = 'Five'
-epoch = '542'
+satellite = 'Enlight'
+epoch = '001'
 
 def tensor2img(img):
     img = img.data.cpu().numpy()
@@ -35,18 +32,15 @@ def get_transforms():
 
 device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
 parser = argparse.ArgumentParser()
-# parser.add_argument('--img_folder',type=str,default=r'/home/tr708/data/data3/zlq/lowlight2024/myenlight-542-24.1309-0.8798/datasets/val/low/',help='input image path')
-parser.add_argument('--img_folder',type=str,default=r'/home/tr708/data/data3/zlq/lowlight2024/myenlight-542-24.1309-0.8798/datasets/LU100/resolution_256_256',help='input image path')
-parser.add_argument('--load_modke_folder',type=str,default=r'/home/tr708/data/data3/zlq/lowlight2024/myenlight-542-24.1309-0.8798/results/model_save/',help='output folder')
-# parser.add_argument('--output_folder',type=str,default=r'/home/tr708/data/data3/zlq/lowlight2024/myenlight-542-24.1309-0.8798/results/output_test00/',help='output folder')
-parser.add_argument('--output_folder',type=str,default=r'/home/tr708/data/data3/zlq/lowlight2024/myenlight-542-24.1309-0.8798/results/oursdb',help='output folder')
+parser.add_argument('--img_folder',type=str,default=r'',help='input image path')
+parser.add_argument('--load_modke_folder',type=str,default=r'',help='output folder')
+parser.add_argument('--output_folder',type=str,default=r'',help='output folder')
 args = parser.parse_args()
 
 if __name__ == "__main__":
-    net = FIVE_APLUSNet().to(device)
+    net = Enlight().to(device)
     net.eval()
     with torch.no_grad():
-        # checkpoint_model = join(args.load_modke_folder, '{}-model-epochs-bestSSIM{}.pth'.format(satellite, epoch))
         checkpoint_model = join(args.load_modke_folder, '{}-model-epochs{}.pth'.format(satellite, epoch))
         checkpoint = torch.load(checkpoint_model, map_location='cpu')
         net.load_state_dict(checkpoint['model'])
