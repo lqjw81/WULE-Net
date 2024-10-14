@@ -4,6 +4,7 @@
 
 
 Training:
+
 Environmental requirements:
 
 Python 3.7 or a newer version
