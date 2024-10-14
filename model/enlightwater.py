@@ -180,10 +180,6 @@ class SplitAug(nn.Module):
 
         return out_instance
 
-
-
-
-#对水平方向的小波部分进行水平方向的平均池化注意力
 class Pool_x(nn.Module):
     def __init__(self, inplanes=16, outplanes=16, norm_layer=nn.BatchNorm2d):
         super(Pool_x, self).__init__()
@@ -337,9 +333,9 @@ class WB(nn.Module):
         return out
 
 # MAIN-Net
-class FIVE_APLUSNet(nn.Module):
+class Enlight(nn.Module):
     def __init__(self, out_nc=3, base_nf=16):
-        super(FIVE_APLUSNet, self).__init__()
+        super(Enlight, self).__init__()
 
         self.base_nf = base_nf
         self.out_nc = out_nc
