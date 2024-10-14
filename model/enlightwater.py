@@ -3,10 +3,8 @@ import math
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-
 from archs import wavelet
 from utils.color_change import rgb2hsi
-
 
 class PALayer(nn.Module):
     def __init__(self, channel):
@@ -22,7 +20,6 @@ class PALayer(nn.Module):
     def forward(self, x):
         y = self.pa(x)
         return x * y
-
 
 # Multi-Scale Pyramid Module
 class Enhance(nn.Module):
