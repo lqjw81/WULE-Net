@@ -4,7 +4,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 from archs import wavelet
-from utils.color_change import rgb2hsi
+
 
 class PALayer(nn.Module):
     def __init__(self, channel):
@@ -352,8 +352,12 @@ class Enlight(nn.Module):
         self.wb = WB()
         self.tanh = nn.Tanh()
     def cc_enl(self, x):
-        t = rgb2hsi(x)
-        _, i = torch.split(t, [2, 1], dim=1)
+        img = torch.clamp(x, 0, 1)
+        r = img[:, 0, :, :]
+        g = img[:, 1, :, :]
+        b = img[:, 2, :, :]
+        i = (r + g + b) / 3
+        i = i.unsqueeze(1)
         y = (1-i) * x + x
         minhs = -self.maxpool(-y)
         maxhs = self.maxpool(y)
